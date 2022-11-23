@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "mihkel-react-veebipood-11-20",
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

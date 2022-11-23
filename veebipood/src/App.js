@@ -4,6 +4,12 @@ import './App.css';
 import Avaleht from './pages/Avaleht';
 import LisaToode from './pages/LisaToode';
 import Ostukorv from './pages/Ostukorv';
+import HaldaTooted from './pages/HaldaTooted';
+import MuudaToode from './pages/MuudaToode';
+import Poed from './pages/Poed';
+import Seaded from './pages/Seaded';
+import Tooted from './pages/Tooted';
+import YksikToode from './pages/YksikToode';
 
 function App() {
   return (
@@ -21,10 +27,32 @@ function App() {
         <button className="nupp">Ostukorvi</button>
       </Link>
 
+      <Link to="/halda-tooted">
+        <button className="nupp">Halda tooteid</button>
+      </Link>
+
+      <Link to="/poed">
+        <button className="nupp">Poed</button>
+      </Link>
+
+      <Link to="/seaded">
+        <button className="nupp">Seaded</button>
+      </Link>
+
+      <Link to="/tooted">
+        <button className="nupp">Tooted</button>
+      </Link>
+
       <Routes>
         <Route path="" element={ <Avaleht /> } />
         <Route path="lisa-toode" element={ <LisaToode /> } />
         <Route path="ostukorv" element={ <Ostukorv /> } />
+        <Route path="halda-tooted" element={ <HaldaTooted /> } />
+        <Route path="muuda" element={ <MuudaToode /> } />
+        <Route path="poed" element={ <Poed /> } />
+        <Route path="seaded" element={ <Seaded /> } />
+        <Route path="tooted" element={ <Tooted /> } />
+        <Route path="toode" element={ <YksikToode /> } />
       </Routes>
     </div>
   );
