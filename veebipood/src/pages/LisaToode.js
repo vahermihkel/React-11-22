@@ -1,5 +1,11 @@
 import { useRef, useState } from "react";
 
+// tumesinine - tähistus/liik   function, const, let, HTMLs div, label, input
+// sinine - muutuja mis on loodud kõige üleval
+// helesinine - mingi omadus sellest muutujast
+// kollane - funktsioon
+// lilla - tagastis
+
 function LisaToode() {
   const [sonum, muudaSonum] = useState("Lisa uus toode!");
   const nimiViide = useRef();
