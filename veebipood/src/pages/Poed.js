@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useState } from "react";
 import poedFailist from "../poed.json";
 
@@ -95,26 +96,83 @@ function Poed() {
     uuendaPoode(tulem);
   }
 
+  const tyhjenda = () => {
+    // filtreerib kõik välja kuna noole järel on väär
+    // const tulem = meiePoed.filter(pood => false); 
+    // uuendaPoode(tulem);
+
+    // splice on kustutamiseks, alates mitmendast järjekorranumbrist (0 <- on esimene)
+    // meiePoed.splice(0); 
+    // uuendaPoode(meiePoed.slice());
+
+    uuendaPoode([]);
+  }
+
+      // kui ei algväärtustata, tuleb siia tühjus
+      // kui on tühjus, siis kustutatakse ESIMENE, sest tühjus on 0
+  const kustuta = (j2rjekorraNumber) => {
+    meiePoed.splice(j2rjekorraNumber, 1); // võtab ühe vähemaks
+    uuendaPoode(meiePoed); // uuendab HTMLi
+  }
+
+  // const kustutaMustam2e = () => {
+  //   meiePoed.splice(0, 1);
+  // }
+
+  // const kustutaKristiine = () => {
+  //   meiePoed.splice(1, 1);
+  // }
+
+  // const kustutaKesklinn = () => {
+  //   meiePoed.splice(2, 1);
+  // }
+
+  // const kustutaLasnam2e = () => {
+  //   meiePoed.splice(3, 1);
+  // }
+
+  const poodRef = useRef(); // pean tegema useRef osas impordi
+
+  const lisa = () => {
+    // meiePoed.push(document.getElementById("poodInput").value);
+    meiePoed.push(poodRef.current.value);
+    uuendaPoode(meiePoed.slice());
+  }
+
+  // document.getElementById <----- käib KÕIK HTML-ld läbi
+  // 1. vigade tekkimise oht
+  // 2. efektiivsus / kiirus
+
   return ( 
     <div>
-      <button onClick={tagasi}>Pane tagasi algväärtus</button>
-      <button onClick={sorteeriAZ}>Sorteeri A-Z</button>
-      <button onClick={sorteeriZA}>Sorteeri Z-A</button>
-      <button onClick={sorteeriTahed}>Sorteeri tähemärkide kasvavas järjekorras</button>
-      <button onClick={sorteeriTahedKah}>Sorteeri tähemärkide kahanevas järjekorras</button>
-      <button onClick={filtreeri}>Jäta alles 'mäe'-ga lõppevad</button>
-      <button onClick={filtreeriLinn}>Jäta alles kellel 'linn' sees</button>
-      <button onClick={filtreeri3sS}>Jäta alles kellel 3-s täht 's'</button>
-      <button onClick={muudaVaikseks}>Muuda kõikidel tähed väikseks</button>
-      <button onClick={muudaSuureks}>Muuda kõikidel tähed suureks</button>
-      <button onClick={muudaKriipsudEtte}>Muuda kõikidel kriipsud ette</button>
+      <div>
+        <button onClick={tagasi}>Pane tagasi algväärtus</button>
+        <button onClick={sorteeriAZ}>Sorteeri A-Z</button>
+        <button onClick={sorteeriZA}>Sorteeri Z-A</button>
+        <button onClick={sorteeriTahed}>Sorteeri tähemärkide kasvavas järjekorras</button>
+        <button onClick={sorteeriTahedKah}>Sorteeri tähemärkide kahanevas järjekorras</button>
+        <button onClick={filtreeri}>Jäta alles 'mäe'-ga lõppevad</button>
+        <button onClick={filtreeriLinn}>Jäta alles kellel 'linn' sees</button>
+        <button onClick={filtreeri3sS}>Jäta alles kellel 3-s täht 's'</button>
+        <button onClick={muudaVaikseks}>Muuda kõikidel tähed väikseks</button>
+        <button onClick={muudaSuureks}>Muuda kõikidel tähed suureks</button>
+        <button onClick={muudaKriipsudEtte}>Muuda kõikidel kriipsud ette</button>
+        <button onClick={tyhjenda}>Tühjenda</button>
+      </div>
       <div>Poode kokku: {meiePoed.length}</div>
-      {meiePoed.map( (pood, index) => <div key={index}>{pood}</div> )}
+      <label>Uus pood</label> <br />
+      <input ref={poodRef} type="text" /> <br />
+      <button onClick={lisa}>Sisesta uus</button> <br />
+      {meiePoed.map( (pood, index) => 
+        <div key={index}>
+          {index}. {pood} 
+          <button onClick={() => kustuta(index)}>x</button>
+        </div> )}
       <div>------------------------------</div>
-    {/* ["Mustamäe", "Kristiine", "Kesklinn"].map()
-      "Mustamäe" => <div>Mustamäe</div>
-      "Kristiine" => <div>Kristiine</div>
-      "Kesklinn" => <div>Kesklinn</div>
+    {/* ["Mustamäe", "Kristiine", "Kesklinn"].map((element, index) =>)
+      ("Mustamäe", 0) => <div>Mustamäe</div>
+      ("Kristiine", 1) => <div>Kristiine</div>
+      ("Kesklinn", 2)=> <div>Kesklinn</div>
        */}
       <div>Mustamäe</div>
       <div>Kristiine</div>
@@ -124,7 +182,7 @@ function Poed() {
       <div>Õismäe</div>
       <div>Kakumäe</div>
       <div>------------------------</div>
-      {["BMW", "Nobe", "Tesla"].map( auto => <div>{auto}</div> )}
+      {["BMW", "Nobe", "Tesla"].map( auto => <div key={auto}>{auto}</div> )}
       <div>BMW</div>
       <div>Nobe</div>
       <div>Tesla</div>
@@ -136,3 +194,21 @@ function Poed() {
 // 3. tahan järjekorda muuta
 
 export default Poed;
+
+// Väikekaupmehele/endale 2500 eur --> 2-3päeva Wordpress / ajakulu 2 nädalat
+// FB Grupp "Vabakutselised arendajad ja disainerid"
+
+// Väike custom-made --> 10 000 - 50 000  React / Backend Nodejs Expressjs Nextjs
+// 6kuud
+
+// Suur custom-made ---> 100 000+   React / Backend Java 
+// alates 1a     3.8miljonit   5 aastat    63 000    
+
+// 1. hange oli kirjutada lahti riigi soovid -> Nortal
+// 2. hange oli Nortali lahtikirjutatud asjade peale tegemine
+
+// Waterfall    maksad ühe summa ja tehakse selle eest valmis
+// Agiilne    maksad kõik tunnid kinni
+
+// Scrum master / Tiimijuht / Analüütik
+// Panevad paika tööjärjekorra, räägivad klientidega läbi jne
