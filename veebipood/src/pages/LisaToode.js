@@ -22,6 +22,10 @@ function LisaToode() {
       tootedLS = JSON.stringify(tootedLS);
       localStorage.setItem("tooted", tootedLS);
 
+      // eksisteerivad JS-s: localStorage+funktsioonid, JSON+funktsioonid, console.log
+      // let ja const abil teen enda muutujaid (+funktsioone)
+      // kõik Reacti asjad tuleb importida
+      
 
       // const tooted = JSON.parse(localStorage.getItem("tooted")) || [];
       // tooted.push(nimiViide.current.value);

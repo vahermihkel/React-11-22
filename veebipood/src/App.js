@@ -48,11 +48,11 @@ function App() {
         <Route path="lisa-toode" element={ <LisaToode /> } />
         <Route path="ostukorv" element={ <Ostukorv /> } />
         <Route path="halda-tooted" element={ <HaldaTooted /> } />
-        <Route path="muuda" element={ <MuudaToode /> } />
+        <Route path="muuda/:i" element={ <MuudaToode /> } />
         <Route path="poed" element={ <Poed /> } />
         <Route path="seaded" element={ <Seaded /> } />
         <Route path="tooted" element={ <Tooted /> } />
-        <Route path="toode" element={ <YksikToode /> } />
+        <Route path="toode/:index" element={ <YksikToode /> } />
       </Routes>
     </div>
   );

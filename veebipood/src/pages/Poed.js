@@ -28,6 +28,7 @@ function Poed() {
 // =    <-- väärtuse andmine paremalt vasakule  
 
   const [meiePoed, uuendaPoode] = useState(poedFailist.slice());
+  const poodRef = useRef(); // pean tegema useRef osas impordi
 
   const tagasi = () => {
     uuendaPoode(poedFailist.slice());
@@ -63,6 +64,17 @@ function Poed() {
     meiePoed.sort((a, b) => b.length - a.length); 
     uuendaPoode(meiePoed.slice());
   }
+  
+  const sorteeriTeiseTaheJ2rgi = () => {
+    //meiePoed.sort() // <---- default funktsionaalsus: paneb kõik A-Z järjekorda
+    meiePoed.sort((a, b) => a.charAt(1).localeCompare(b.charAt(1))); 
+    uuendaPoode(meiePoed.slice()); // .slice() teeb koopia
+  }
+
+  // sort, filter, map ---> array funktsioonid ehk kellele ma neid teen peab olema kujul []
+  // charAt, endsWith, includes, toLowerCase ---> stringi funktsioonid
+  // Lasnamäe:  0-L  ,  1-a   ,  2-s   ,    3-n    ,   4-a 
+  // a ja b võrdlus - kui on a enne, siis kasvav, kui b enne, siis kahanev
 
   const filtreeri = () => {
     const tulem = meiePoed.filter(pood => pood.endsWith("mäe"));
@@ -81,6 +93,11 @@ function Poed() {
     uuendaPoode(tulem);
   }
 
+  const filtreeriKellel7T2hte = () => {
+    const tulem = meiePoed.filter(pood => pood.length === 7);
+    uuendaPoode(tulem);
+  }
+
   const muudaVaikseks = () => {
     const tulem = meiePoed.map(pood => pood.toLowerCase());
     uuendaPoode(tulem);
@@ -93,6 +110,11 @@ function Poed() {
 
   const muudaKriipsudEtte = () => {
     const tulem = meiePoed.map(pood => "--" + pood);
+    uuendaPoode(tulem);
+  }
+
+  const muudaPikkusL6ppu = () => {
+    const tulem = meiePoed.map(pood => pood + pood.length);
     uuendaPoode(tulem);
   }
 
@@ -112,7 +134,7 @@ function Poed() {
       // kui on tühjus, siis kustutatakse ESIMENE, sest tühjus on 0
   const kustuta = (j2rjekorraNumber) => {
     meiePoed.splice(j2rjekorraNumber, 1); // võtab ühe vähemaks
-    uuendaPoode(meiePoed); // uuendab HTMLi
+    uuendaPoode(meiePoed.slice()); // uuendab HTMLi
   }
 
   // const kustutaMustam2e = () => {
@@ -130,8 +152,6 @@ function Poed() {
   // const kustutaLasnam2e = () => {
   //   meiePoed.splice(3, 1);
   // }
-
-  const poodRef = useRef(); // pean tegema useRef osas impordi
 
   const lisa = () => {
     // meiePoed.push(document.getElementById("poodInput").value);
@@ -151,12 +171,15 @@ function Poed() {
         <button onClick={sorteeriZA}>Sorteeri Z-A</button>
         <button onClick={sorteeriTahed}>Sorteeri tähemärkide kasvavas järjekorras</button>
         <button onClick={sorteeriTahedKah}>Sorteeri tähemärkide kahanevas järjekorras</button>
+        <button onClick={sorteeriTeiseTaheJ2rgi}>Sorteeri teise tähe järgi</button>
         <button onClick={filtreeri}>Jäta alles 'mäe'-ga lõppevad</button>
         <button onClick={filtreeriLinn}>Jäta alles kellel 'linn' sees</button>
         <button onClick={filtreeri3sS}>Jäta alles kellel 3-s täht 's'</button>
+        <button onClick={filtreeriKellel7T2hte}>Jäta alles kellel 3-s täht 's'</button>
         <button onClick={muudaVaikseks}>Muuda kõikidel tähed väikseks</button>
         <button onClick={muudaSuureks}>Muuda kõikidel tähed suureks</button>
         <button onClick={muudaKriipsudEtte}>Muuda kõikidel kriipsud ette</button>
+        <button onClick={muudaPikkusL6ppu}>Muuda kõikidel kriipsud ette</button>
         <button onClick={tyhjenda}>Tühjenda</button>
       </div>
       <div>Poode kokku: {meiePoed.length}</div>
