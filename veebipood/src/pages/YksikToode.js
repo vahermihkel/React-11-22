@@ -11,7 +11,14 @@ const YksikToode = () => {
 
   return (
     <div>
-      {leitudToode !== undefined && <div>{leitudToode}</div>}
+      {/* Uncaught Error: Objects are not valid as a React child (found: object with keys {nimi, hind, pilt, aktiivne}) */}
+      {leitudToode !== undefined && 
+        <div>
+          <img src={leitudToode.pilt} alt="" />
+          <div>{leitudToode.nimi}</div>
+          <div>{leitudToode.hind}</div>
+          <div>{leitudToode.aktiivne + 0}</div>
+        </div>}
       {leitudToode === undefined && <div>Toodet ei leitud</div>}
     </div>
   )

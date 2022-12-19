@@ -9,6 +9,9 @@ import { useRef, useState } from "react";
 function LisaToode() {
   const [sonum, muudaSonum] = useState("Lisa uus toode!");
   const nimiViide = useRef();
+  const piltViide = useRef();
+  const hindViide = useRef();
+  const aktiivneViide = useRef();
 
   function lisa() {
     if (nimiViide.current.value === "") {
@@ -18,9 +21,20 @@ function LisaToode() {
 
       let tootedLS = localStorage.getItem("tooted");
       tootedLS = JSON.parse(tootedLS) || [];
-      tootedLS.push(nimiViide.current.value);
+      const uusToode = {
+        "nimi": nimiViide.current.value,
+        "hind": Number(hindViide.current.value),
+        "pilt": piltViide.current.value,
+        "aktiivne": aktiivneViide.current.checked,
+      }
+      tootedLS.push(uusToode);
       tootedLS = JSON.stringify(tootedLS);
       localStorage.setItem("tooted", tootedLS);
+
+      nimiViide.current.value = "";
+      hindViide.current.value = "";
+      piltViide.current.value = "";
+      aktiivneViide.current.checked = false;
 
       // eksisteerivad JS-s: localStorage+funktsioonid, JSON+funktsioonid, console.log
       // let ja const abil teen enda muutujaid (+funktsioone)
@@ -50,6 +64,12 @@ function LisaToode() {
       <div>{sonum}</div>
       <label>Uue toote nimi</label> <br />
       <input ref={nimiViide} type="text" /> <br />
+      <label>Uue toote pilt</label> <br />
+      <input ref={piltViide} type="text" /> <br />
+      <label>Uue toote hind</label> <br />
+      <input ref={hindViide} type="number" /> <br />
+      <label>Uue toote aktiivsus</label> <br />
+      <input ref={aktiivneViide} type="checkbox" /> <br />
       <button onClick={lisa}>Sisesta</button> <br />
     </div> );
 }

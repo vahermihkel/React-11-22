@@ -1,10 +1,11 @@
 [
-  "Mustamäe", 
-  "Kristiine", 
-  "Kesklinn", 
-  "Lasnamäe", 
-  "Kalinnas", 
-  "Põhja-Tallinn", 
-  "Õismäe", 
-  "Kakumäe"
+  {"nimi": "Mustamäe", "aeg": "9-22"},
+  {"nimi": "Kristiine", "aeg": "10-22"},
+  {"nimi": "Kesklinn", "aeg": "9-23"}, 
+  {"nimi": "Lasnamäe", "aeg": "8-21"},
+  {"nimi": "Kalinnas", "aeg": "8-22"},
+  {"nimi": "Põhja-Tallinn", "aeg": "9-23"},
+  {"nimi": "Õismäe", "aeg": "9-22"},
+  {"nimi": "Kakumäe", "aeg": "9-17"},
+  {"nimi": "Saku", "aeg": "9-20"}
 ]

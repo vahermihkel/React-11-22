@@ -23,6 +23,16 @@ function Ostukorv() {
     localStorage.setItem("ostukorv", JSON.stringify(ostukorv)); // salvestuseks
   }
 
+  const arvutaKogusumma = () => {
+    let kogusumma = 0;
+    // [{"n": "Coca", "h": 5},{"n": "Fanta", "h": 3},{"n": "Sprite", "h": 4}]
+    //  {"n": "Coca", "h": 5} =>   5   =   0  + 5
+    //  {"n": "Fanta", "h": 3} =>    8   =   5  +  3
+    //  {"n": "Sprite", "h": 4} =>    12    =    8   +  4
+    ostukorv.forEach(element => kogusumma = kogusumma + element.hind);
+    return kogusumma;
+  }
+
   return ( 
     <div>
       {ostukorv.length === 0 && 
@@ -37,10 +47,14 @@ function Ostukorv() {
       {ostukorv.length > 0 && <button onClick={tyhjenda}>Tühjenda</button> }
       {ostukorv.map((element,i) => 
         <div key={i}>
-          {element}
+          <img src={element.pilt} alt="" />
+          <div>{element.nimi}</div>
+          <div>{element.hind} €</div>
           <button onClick={() => kustuta(i)}>x</button>
           <button onClick={() => lisa(element)}>+</button>
         </div>)}
+      
+      <div>{arvutaKogusumma()} €</div>
     </div>  
     );
 }
