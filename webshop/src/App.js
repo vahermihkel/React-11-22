@@ -51,7 +51,7 @@ function App() {
         <Route path="product" element={ <SingleProduct /> } />
         <Route path="admin" element={ <AdminHome /> } />
         <Route path="admin/add-product" element={ <AddProduct /> } />
-        <Route path="admin/edit-product" element={ <EditProduct /> } />
+        <Route path="admin/edit-product/:id" element={ <EditProduct /> } />
         <Route path="admin/maintain-products" element={ <MaintainProducts /> } />
         <Route path="admin/maintain-categories" element={ <MaintainCategories /> } />
         <Route path="admin/maintain-shops" element={ <MaintainShops /> } />
@@ -61,3 +61,24 @@ function App() {
 }
 
 export default App;
+
+
+// algus: 21.11
+// lõpp: 30.01
+
+
+// 15.detsember - 5
+// 19.detsember - 6
+// 22.detsember - 7
+// 27.detsember - 8
+// 29.detsember - 9  9.00-12.45
+// 2.jaanuar E - 10  9.00-12.45
+// 4.jaanuar K - 11  9.00-12.45
+// 6.jaanuar R - 12    9.00-10.30
+// 9.jaanuar - 13
+// 11.jaanuar - 14
+// 16.jaanuar - 15
+// 18.jaanuar - 16
+// 23.jaanuar - 17
+
+// 30.jaanuar - 18 ---> poolik päev, projekti kirjutamine
