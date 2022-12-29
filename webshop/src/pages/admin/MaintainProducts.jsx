@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import productsFromFile from "../../data/products.json"; 
+import { ToastContainer, toast } from 'react-toastify';
 
 function MaintainProducts() {
   const [products, setProducts] = useState(productsFromFile);
@@ -9,6 +10,10 @@ function MaintainProducts() {
   const remove = (i) => {
     products.splice(i,1);
     setProducts(products.slice());
+    toast.error("Toode kustutatud!", {
+      "position": "bottom-right",
+      "theme": "dark"
+    });
   }
 
   // otsing
@@ -19,6 +24,7 @@ function MaintainProducts() {
 
   return (
     <div>
+      <ToastContainer />
       <input ref={searchedRef} onChange={searchProducts} type="text" />
       <div>{products.length} tk</div>
       {products.map((element, index) => 

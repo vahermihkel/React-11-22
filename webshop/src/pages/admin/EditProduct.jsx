@@ -6,11 +6,10 @@ function EditProduct() {
   const { id } = useParams();
   const productFound = productsFromFile.find(element => element.id === Number(id));
   const index = productsFromFile.indexOf(productFound);
-
   // const index2 = productsFromFile.findIndex(element => element.id === Number(id));
   // const productFound2 = productsFromFile[index2];
 
-
+  const [isUnique, setUnique] = useState(true);
   const idRef = useRef();
   const nameRef = useRef();
   const priceRef = useRef();
@@ -33,24 +32,25 @@ function EditProduct() {
     // productsFromFile.push(updatedProduct);
     // idRef.current.value = ""; 7x
   }
-
-  const [message, setMessage] = useState("");
   
-  // ID unikaalsuse kontroll
   const checkIdUniqueness = () => {
+    if (idRef.current.value === id) {
+      return; // ära mine siit funktsioonist edasi
+    }
+    
     const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
     if (product === undefined) {
       // EI OLE SELLISE ID-ga TOODET
-      setMessage("");
+      setUnique(true);
     } else {
       // ON SELLISE ID-ga TOODE
-      setMessage("Sellise ID-ga toode on juba olemas");
+      setUnique(false);
     }
   }
 
   return (
     <div>
-      <div>{message}</div>
+      {isUnique === false && <div>Sellise ID-ga toode on juba olemas</div>}
       {productFound !== undefined && 
         <div>
           <label>ID</label> <br />  
@@ -67,7 +67,7 @@ function EditProduct() {
           <input ref={descriptionRef} defaultValue={productFound.description} type="text" /> <br />
           <label>Active</label> <br />  
           <input ref={activeRef} defaultChecked={productFound.active} type="checkbox" /> <br />
-          <button onClick={changeProduct}>Change</button>
+          <button onClick={changeProduct} disabled={isUnique === false}>Change</button>
         </div>}
       {productFound === undefined && <div>Toodet ei leitud</div>}
     </div>

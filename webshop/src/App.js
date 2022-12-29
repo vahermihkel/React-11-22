@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import './App.css';
 import Cart from "./pages/Cart";
+// import {ContactUs} from "./pages/ContactUs";
 import ContactUs from "./pages/ContactUs";
 import HomePage from "./pages/HomePage";
 import Shops from "./pages/Shops";
@@ -71,14 +72,41 @@ export default App;
 // 19.detsember - 6
 // 22.detsember - 7
 // 27.detsember - 8
-// 29.detsember - 9  9.00-12.45
+// 29.detsember - 9  9.00-12.45   
+// Leaflet kaardirakendus, emailjs emaili saatmiseks, Firebase ülespanemiseks, react toastify
+
 // 2.jaanuar E - 10  9.00-12.45
+// ostukorvi loogikat - teen samasuguseks kui teil, lisaks koguste süsteem koos, lisaks kujundus
+// objekt objekti sees <------
+
 // 4.jaanuar K - 11  9.00-12.45
+// API päringud - pakiautomaatide võtmine Omniva lehelt, tooted andmebaasist, andmebaasi
+// select + option
+// useEffect() <-----   fetch().then().then()    GET   <-----     fetch("",{})
+// Postman programm
+
 // 6.jaanuar R - 12    9.00-10.30
+// API päringud - makse: EveryPay
+// fetch("", {}).then().then()
+
 // 9.jaanuar - 13
+// API päringud - kategooriad andmebaasi, kategooriad tuleks dropdownist, 
+//  poed tuleks andmebaasist   MaintainShops.jsx
+// select + option
+// loader <- keerleb kui lehte laetakse
+
 // 11.jaanuar - 14
+// props ehk child componendid, kasutan ühte faili teise sees
+
 // 16.jaanuar - 15
+// useContext() <--- globaalne muutuja   ostukorvi kogusumma Navbari, avalehele, ostukorvi
+
 // 18.jaanuar - 16
+// useContext() <--- globaalne muutuja
+// sisselogimine/registreerumine    Firebase kaudu
+
 // 23.jaanuar - 17
+// räägin hiljem
+// võime teha e-maili saatmise maksmise asemel radio-button
 
 // 30.jaanuar - 18 ---> poolik päev, projekti kirjutamine
