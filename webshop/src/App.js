@@ -78,6 +78,8 @@ export default App;
 // 2.jaanuar E - 10  9.00-12.45
 // ostukorvi loogikat - teen samasuguseks kui teil, lisaks koguste süsteem koos, lisaks kujundus
 // objekt objekti sees <------
+// sorteerimine
+// kategooriate järgi filtreerimine
 
 // 4.jaanuar K - 11  9.00-12.45
 // API päringud - pakiautomaatide võtmine Omniva lehelt, tooted andmebaasist, andmebaasi
