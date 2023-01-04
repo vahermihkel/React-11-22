@@ -87,23 +87,21 @@ export default App;
 // useEffect() <-----   fetch().then().then()    GET   <-----     fetch("",{})
 // Postman programm
 
-// 6.jaanuar R - 12    9.00-10.30
-// API päringud - makse: EveryPay
-// fetch("", {}).then().then()
-
-// 9.jaanuar - 13
+// 9.jaanuar E - 13    9.00-12.45
 // API päringud - kategooriad andmebaasi, kategooriad tuleks dropdownist, 
 //  poed tuleks andmebaasist   MaintainShops.jsx
 // select + option
 // loader <- keerleb kui lehte laetakse
+// API päringud - makse: EveryPay
+// fetch("", {}).then().then()
 
-// 11.jaanuar - 14
+// 11.jaanuar K - 14    9.00-12.45
 // props ehk child componendid, kasutan ühte faili teise sees
 
-// 16.jaanuar - 15
+// 16.jaanuar E - 15     9.00-12.45
 // useContext() <--- globaalne muutuja   ostukorvi kogusumma Navbari, avalehele, ostukorvi
 
-// 18.jaanuar - 16
+// 18.jaanuar K - 16
 // useContext() <--- globaalne muutuja
 // sisselogimine/registreerumine    Firebase kaudu
 

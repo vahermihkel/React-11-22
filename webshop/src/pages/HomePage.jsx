@@ -1,8 +1,22 @@
-import { useState } from "react";
-import productsFromFile from "../data/products.json";
+import { useEffect, useState } from "react";
+// import productsFromFile from "../data/products.json";
+import config from "../data/config.json";
+
 
 function HomePage() {
-  const [products, setProducts] = useState(productsFromFile);
+  const [products, setProducts] = useState([]);
+  const [dbProducts, setDbProducts] = useState([]);
+  // const dbUrl = "https://react-mihkel-webshop-12-2022-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+
+  // uef
+  useEffect(() => {
+    fetch(config.productsDbUrl)
+      .then(res => res.json())
+      .then(json => {
+        setProducts(json);
+        setDbProducts(json);
+      });
+  }, []);
 
     // [{id, name, price}, {id, name, price}, {id, name, price}, {id, name, price}]
   // [{product: {id, name, price}, quantity: 5}, {product: {id, name, price}, quantity: 5}, {product: {id, name, price}, quantity: 1}]
@@ -45,7 +59,7 @@ function HomePage() {
   }
 
   const filterByCategory = (categoryClicked) => {
-    const result = productsFromFile.filter(element => element.category === categoryClicked);
+    const result = dbProducts.filter(element => element.category === categoryClicked);
     setProducts(result);
     // alguses tehke ise nupud (nagu tegime)
     // hiljem võtke toodete küljest dünaamiliselt kõik kategooriad ja .map abil kuvage
@@ -64,7 +78,7 @@ function HomePage() {
       <button onClick={sortPriceDesc}>Sort price desc</button>
       <div>{products.length} tk</div>
       {categories.map(element => 
-        <button onClick={() => filterByCategory(element)}>
+        <button key={element} onClick={() => filterByCategory(element)}>
           {element}
         </button> )}
       {/* <button onClick={() => filterByCategory("memory bank")}>memory bank</button>

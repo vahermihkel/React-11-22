@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react'
-import productsFromFile from "../../data/products.json";
+import { useEffect, useRef, useState } from 'react'
+// import productsFromFile from "../../data/products.json";
+import config from "../../data/config.json";
 import { ToastContainer, toast } from 'react-toastify';
 
 function AddProduct() {
@@ -13,6 +14,18 @@ function AddProduct() {
   const descriptionRef = useRef();
   const activeRef = useRef();
 
+  const [dbProducts, setDbProducts] = useState([]);
+
+  // uef
+  useEffect(() => {
+    fetch(config.productsDbUrl)
+      .then(res => res.json())
+      .then(json => {
+        // setProducts(json);
+        setDbProducts(json);
+      });
+  }, []);
+
   const add = () => {
     const newProduct = {
       "id": Number(idRef.current.value),
@@ -23,22 +36,26 @@ function AddProduct() {
       "description": descriptionRef.current.value,
       "active": activeRef.current.checked,
     }
-    productsFromFile.push(newProduct);
-    idRef.current.value = "";
-    nameRef.current.value = "";
-    priceRef.current.value = "";
-    imageRef.current.value = "";
-    categoryRef.current.value = "";
-    descriptionRef.current.value = "";
-    activeRef.current.checked = false;
-    toast.success("Toode lisatud!", {
-      "position": "bottom-right",
-      "theme": "dark"
-    });
+    dbProducts.push(newProduct);
+
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
+      .then(() => {
+        idRef.current.value = "";
+        nameRef.current.value = "";
+        priceRef.current.value = "";
+        imageRef.current.value = "";
+        categoryRef.current.value = "";
+        descriptionRef.current.value = "";
+        activeRef.current.checked = false;
+        toast.success("Toode lisatud!", {
+          "position": "bottom-right",
+          "theme": "dark"
+        });
+      })
   }
 
   const checkIdUniqueness = () => {
-    const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
+    const product = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (product === undefined) {
       // EI OLE SELLISE ID-ga TOODET
       setUnique(true);

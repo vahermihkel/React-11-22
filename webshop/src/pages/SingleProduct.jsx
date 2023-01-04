@@ -1,5 +1,7 @@
 
 function SingleProduct() {
+  //KODUS
+
   return (
     <div>SingleProduct</div>
   )

@@ -1,11 +1,12 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom"
-import productsFromFile from "../../data/products.json";
+import config from "../../data/config.json";
 
 function EditProduct() {
+  const [dbProducts, setDbProducts] = useState([]);
   const { id } = useParams();
-  const productFound = productsFromFile.find(element => element.id === Number(id));
-  const index = productsFromFile.indexOf(productFound);
+  const productFound = dbProducts.find(element => element.id === Number(id));
+  const index = dbProducts.indexOf(productFound);
   // const index2 = productsFromFile.findIndex(element => element.id === Number(id));
   // const productFound2 = productsFromFile[index2];
 
@@ -18,6 +19,16 @@ function EditProduct() {
   const descriptionRef = useRef();
   const activeRef = useRef();
 
+  // uef
+  useEffect(() => {
+    fetch(config.productsDbUrl)
+      .then(res => res.json())
+      .then(json => {
+        // setProducts(json);
+        setDbProducts(json);
+      });
+  }, []);
+
   const changeProduct = () => {
     const updatedProduct = {
       "id": Number(idRef.current.value),
@@ -28,9 +39,11 @@ function EditProduct() {
       "description": descriptionRef.current.value,
       "active": activeRef.current.checked,
     }
-    productsFromFile[index] = updatedProduct;
+    dbProducts[index] = updatedProduct;
     // productsFromFile.push(updatedProduct);
     // idRef.current.value = ""; 7x
+
+    // KODUS
   }
   
   const checkIdUniqueness = () => {
@@ -38,7 +51,7 @@ function EditProduct() {
       return; // ära mine siit funktsioonist edasi
     }
     
-    const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
+    const product = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (product === undefined) {
       // EI OLE SELLISE ID-ga TOODET
       setUnique(true);
