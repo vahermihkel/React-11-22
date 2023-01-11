@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom"
+import { Spinner } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom"
 import config from "../../data/config.json";
 
 function EditProduct() {
+  const [categories, setCategories] = useState([]);
   const [dbProducts, setDbProducts] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+
   const { id } = useParams();
   const productFound = dbProducts.find(element => element.id === Number(id));
   const index = dbProducts.indexOf(productFound);
@@ -18,14 +22,25 @@ function EditProduct() {
   const categoryRef = useRef();
   const descriptionRef = useRef();
   const activeRef = useRef();
+  const navigate = useNavigate(); // Täpselt sama mis HTMLs <Link to="/admin"
+        // HTMLs suunaks ALATI
 
   // uef
   useEffect(() => {
+    setLoading(true);
+
+    fetch(config.categoriesDbUrl)
+      .then(res => res.json())
+      .then(json => {
+        setCategories(json || []);
+      });
+
     fetch(config.productsDbUrl)
       .then(res => res.json())
       .then(json => {
         // setProducts(json);
         setDbProducts(json);
+        setLoading(false);
       });
   }, []);
 
@@ -40,10 +55,11 @@ function EditProduct() {
       "active": activeRef.current.checked,
     }
     dbProducts[index] = updatedProduct;
-    // productsFromFile.push(updatedProduct);
-    // idRef.current.value = ""; 7x
 
-    // KODUS
+    fetch(config.productsDbUrl + "1", {"method": "PUT", "body": JSON.stringify(dbProducts)})
+    .then(() => { // .then läheb käima siis, kui õnnestub
+      navigate("/admin/maintain-products"); // kui ei õnnestu, siis seda blokki ei tehta
+    })  
   }
   
   const checkIdUniqueness = () => {
@@ -61,6 +77,10 @@ function EditProduct() {
     }
   }
 
+  if (isLoading === true) {
+    return <Spinner />
+  }
+
   return (
     <div>
       {isUnique === false && <div>Sellise ID-ga toode on juba olemas</div>}
@@ -75,7 +95,10 @@ function EditProduct() {
           <label>Image</label> <br />  
           <input ref={imageRef} defaultValue={productFound.image} type="text" /> <br />
           <label>Category</label> <br />  
-          <input ref={categoryRef} defaultValue={productFound.category} type="text" /> <br />
+          {/* <input ref={categoryRef} defaultValue={productFound.category} type="text" /> <br /> */}
+          <select ref={categoryRef} defaultValue={productFound.category}>
+            {categories.map(element => <option key={element.name}>{element.name}</option> )}
+          </select> <br />
           <label>Description</label> <br />  
           <input ref={descriptionRef} defaultValue={productFound.description} type="text" /> <br />
           <label>Active</label> <br />  

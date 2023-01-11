@@ -15,6 +15,7 @@ function AddProduct() {
   const activeRef = useRef();
 
   const [dbProducts, setDbProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   // uef
   useEffect(() => {
@@ -24,9 +25,44 @@ function AddProduct() {
         // setProducts(json);
         setDbProducts(json);
       });
+
+    fetch(config.categoriesDbUrl)
+      .then(res => res.json())
+      .then(json => {
+        setCategories(json || []);
+      });
   }, []);
 
   const add = () => {
+    if (idRef.current.value === "") {
+      toast.error("Pead lisama ID!", {
+        "position": "bottom-right",
+        "theme": "dark"
+      });
+      return; // ei lase minna sellel funktsioonil edasi
+    }
+    if (nameRef.current.value === "") {
+      toast.error("Pead lisama nime!", {
+        "position": "bottom-right",
+        "theme": "dark"
+      });
+      return; // ei lase minna sellel funktsioonil edasi
+    }
+    if (imageRef.current.value === "") {
+      toast.error("Pead lisama pildi!", {
+        "position": "bottom-right",
+        "theme": "dark"
+      });
+      return; // ei lase minna sellel funktsioonil edasi
+    }
+    if (categoryRef.current.value === "DEFAULT") {
+      toast.error("Pead lisama kategooria!", {
+        "position": "bottom-right",
+        "theme": "dark"
+      });
+      return; // ei lase minna sellel funktsioonil edasi
+    }
+    
     const newProduct = {
       "id": Number(idRef.current.value),
       "name": nameRef.current.value,
@@ -78,11 +114,17 @@ function AddProduct() {
       <label>Uue toote hind</label><br />
       <input ref={priceRef} type="number" /><br />
       <label>Uue toote kategooria</label><br />
-      <input ref={categoryRef} type="text" /><br />
+      {/* <input ref={categoryRef} type="text" /><br /> */}
+      <select ref={categoryRef} defaultValue={'DEFAULT'}>
+        <option disabled value="DEFAULT">Vali kategooria</option>
+        {/* <option>memory bank</option>
+        <option>usb stick</option> */}
+        {categories.map(element => <option key={element.name}>{element.name}</option> )}
+      </select> <br />
       <label>Uue toote kirjeldus</label><br />
       <input ref={descriptionRef} type="text" /><br />
-      <label>Uue toote aktiivine</label><br />
-      <input ref={activeRef} type="checkbox" /><br />
+      <label htmlFor="active">Uue toote aktiivsus</label><br />
+      <input id="active" ref={activeRef} type="checkbox" /><br />
                         {/* !isUnique */}
       <button disabled={isUnique === false} onClick={add}>Sisesta</button>
     </div>

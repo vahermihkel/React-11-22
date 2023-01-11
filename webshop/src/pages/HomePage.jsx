@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 // import productsFromFile from "../data/products.json";
 import config from "../data/config.json";
 
@@ -6,15 +7,18 @@ import config from "../data/config.json";
 function HomePage() {
   const [products, setProducts] = useState([]);
   const [dbProducts, setDbProducts] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   // const dbUrl = "https://react-mihkel-webshop-12-2022-default-rtdb.europe-west1.firebasedatabase.app/products.json";
 
   // uef
   useEffect(() => {
+    setLoading(true);
     fetch(config.productsDbUrl)
       .then(res => res.json())
       .then(json => {
         setProducts(json);
         setDbProducts(json);
+        setLoading(false);
       });
   }, []);
 
@@ -68,7 +72,11 @@ function HomePage() {
     //              millega saab filtreerida
   }
           // võtke toodete küljest kõik kategooriad ja tehke nad hiljem unikaalseks
-  const categories = ["memory bank","usb drive"];
+  const categories = [...new Set(dbProducts.map(element => element.category))];
+
+  if (isLoading === true) {
+    return <Spinner />
+  }
 
   return (
     <div>

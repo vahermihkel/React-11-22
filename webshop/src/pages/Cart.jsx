@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom";
+import ParcelMachines from "../components/cart/ParcelMachines";
 import "../css/Cart.css";
 
 function Cart() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
-  const [parcelMachines, setParcelMachines] = useState([]);
-                        // useState() sulgude sees on enne API päringu valmis saamist olev väärtus
-
-  // useEffect käib käsikäes fetchiga, kus kasutatakse useState funktsiooniga
-  // kui tullakse lehele ja tehakse kohe lehele tulles API päring
-  // mitu korda seda lõiku tehakse ja tühja array'ga rohkem ei tehta kui 1x
-  useEffect(() => {
-    fetch("https://www.omniva.ee/locations.json")
-      .then(res => res.json())
-      .then(json => setParcelMachines(json));
-  }, []);  
 
   // võimaldage tühjendada
   const empty = () => {
@@ -65,6 +55,33 @@ function Cart() {
   // [{id, name, price}, {id, name, price}, {id, name, price}, {id, name, price}]
   // [{product: {id, name, price}, quantity: 3}, {product: {id, name, price}, quantity: 1}]
 
+  const pay = () => {
+    const paymentUrl = "https://igw-demo.every-pay.com/api/v4/payments/oneoff";
+    const paymentData = {
+      "api_username": "92ddcfab96e34a5f",
+      "account_name": "EUR3D1",
+      "amount": calculateCartSum(),
+      "order_reference": Math.random()*999999,
+      "nonce": "a9b7f7e7941" + Math.random()*999999 + new Date(),
+      "timestamp": new Date(),
+      "customer_url": "https://react-mihkel-12-2022.web.app"
+      };
+    const paymentHeaders = {
+      "Authorization": "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA==",
+      "Content-Type": "application/json"
+    }; // Authorization vaates, lisaks text/plain --> JSON kuju
+
+    fetch(paymentUrl, {
+      "method": "POST", 
+      "body": JSON.stringify(paymentData), 
+      "headers": paymentHeaders
+    }).then(res => res.json())
+      .then(json => window.location.href = json.payment_link); // window.location.href = json.payment_link
+  }
+
+  // window.location.href --- välisele URLile suunamine
+  // navigate("/"), <Link to="/" --- suuname mingile muule URL-le meie rakenduses
+
   return (
     <div>
       <div className="cart-top">
@@ -90,12 +107,9 @@ function Cart() {
           <div className="cart-bottom">
             <div>{calculateCartSum()} €</div>
 
-            <select>
-              {parcelMachines
-                .filter(element => element.A0_NAME === "EE")
-                .filter(element => element.NAME !== "1. eelistus minu.omniva.ee-s")
-                .map(element => <option key={element.NAME}>{element.NAME}</option>)}
-            </select>
+            <ParcelMachines />
+
+            <button onClick={pay}>Maksa</button>
           </div>
           }
     </div>
@@ -103,3 +117,7 @@ function Cart() {
 }
 
 export default Cart
+
+// 134 rida --- see on OK
+// 150+ rida hakkame mõtlema väljatõstmise
+// 200 rida - tõstame välja

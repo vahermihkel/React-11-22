@@ -3,19 +3,23 @@ import { Link } from "react-router-dom";
 //import productsFromFile from "../../data/products.json"; 
 import config from "../../data/config.json";
 import { ToastContainer, toast } from 'react-toastify';
+import { Spinner } from "react-bootstrap";
 
 function MaintainProducts() {
   const [products, setProducts] = useState([]);
   const searchedRef = useRef();
   const [dbProducts, setDbProducts] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   // uef
   useEffect(() => {
+    setLoading(true);
     fetch(config.productsDbUrl)
       .then(res => res.json())
       .then(json => {
         setProducts(json.slice());
         setDbProducts(json.slice());
+        setLoading(false);
       });
   }, []);
 
@@ -42,6 +46,10 @@ function MaintainProducts() {
   const searchProducts = () => {
     const result = dbProducts.filter(element => element.name.toLowerCase().includes(searchedRef.current.value.toLowerCase()));
     setProducts(result);
+  }
+
+  if (isLoading === true) {
+    return <Spinner />
   }
 
   return (
