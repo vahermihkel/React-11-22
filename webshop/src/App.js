@@ -77,14 +77,17 @@ export default App;
 // props ehk child componendid, kasutan ühte faili teise sees
 
 // 16.jaanuar E - 15     9.00-12.45
+// props jätk
+// dünaamiline CSS
 // useContext() <--- globaalne muutuja   ostukorvi kogusumma Navbari, avalehele, ostukorvi
 
 // 18.jaanuar K - 16    9.00-12.45
+// lahendame proovitöö esimest punkti
 // useContext() <--- globaalne muutuja
 // sisselogimine/registreerumine    Firebase kaudu
 
 // 23.jaanuar - 17    9.00-12.45
-// räägin hiljem
+// lahendan proovitöö ära
 // võime teha e-maili saatmise maksmise asemel radio-button
 
 // 30.jaanuar - 18 ---> poolik päev, projekti kirjutamine

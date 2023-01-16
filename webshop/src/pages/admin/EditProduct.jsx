@@ -55,8 +55,8 @@ function EditProduct() {
       "active": activeRef.current.checked,
     }
     dbProducts[index] = updatedProduct;
-
-    fetch(config.productsDbUrl + "1", {"method": "PUT", "body": JSON.stringify(dbProducts)})
+      
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
     .then(() => { // .then läheb käima siis, kui õnnestub
       navigate("/admin/maintain-products"); // kui ei õnnestu, siis seda blokki ei tehta
     })  

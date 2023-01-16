@@ -1,15 +1,18 @@
-import { useState } from "react"
 import { Link } from "react-router-dom";
 import ParcelMachines from "../components/cart/ParcelMachines";
+import Payment from "../components/cart/Payment";
 import "../css/Cart.css";
+import { useContext, useState } from "react"
+import CartSumContext from "../store/CartSumContext";
 
 function Cart() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+  const cartSumCtx = useContext(CartSumContext);
 
-  // võimaldage tühjendada
   const empty = () => {
     setCart([]);
     localStorage.setItem("cart", JSON.stringify([]));
+    cartSumCtx.setCartSum("0.00");
   }
 
   const decreaseQuantity = (index) => {
@@ -21,6 +24,7 @@ function Cart() {
     }
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
+    cartSumCtx.setCartSum(calculateCartSum());
   }
 
   const increaseQuantity = (index) => {
@@ -29,6 +33,7 @@ function Cart() {
     //     cart[index].quantity++;
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
+    cartSumCtx.setCartSum(calculateCartSum());
   }
 
   // võimaldage ühte kustutada
@@ -36,6 +41,7 @@ function Cart() {
     cart.splice(index,1);
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
+    cartSumCtx.setCartSum(calculateCartSum());
   }
 
   // ostukorvi kogusumma
@@ -54,33 +60,6 @@ function Cart() {
   // ostukorvi pikkuse näitamine + dünaamiline väljakuvamine
   // [{id, name, price}, {id, name, price}, {id, name, price}, {id, name, price}]
   // [{product: {id, name, price}, quantity: 3}, {product: {id, name, price}, quantity: 1}]
-
-  const pay = () => {
-    const paymentUrl = "https://igw-demo.every-pay.com/api/v4/payments/oneoff";
-    const paymentData = {
-      "api_username": "92ddcfab96e34a5f",
-      "account_name": "EUR3D1",
-      "amount": calculateCartSum(),
-      "order_reference": Math.random()*999999,
-      "nonce": "a9b7f7e7941" + Math.random()*999999 + new Date(),
-      "timestamp": new Date(),
-      "customer_url": "https://react-mihkel-12-2022.web.app"
-      };
-    const paymentHeaders = {
-      "Authorization": "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA==",
-      "Content-Type": "application/json"
-    }; // Authorization vaates, lisaks text/plain --> JSON kuju
-
-    fetch(paymentUrl, {
-      "method": "POST", 
-      "body": JSON.stringify(paymentData), 
-      "headers": paymentHeaders
-    }).then(res => res.json())
-      .then(json => window.location.href = json.payment_link); // window.location.href = json.payment_link
-  }
-
-  // window.location.href --- välisele URLile suunamine
-  // navigate("/"), <Link to="/" --- suuname mingile muule URL-le meie rakenduses
 
   return (
     <div>
@@ -109,7 +88,7 @@ function Cart() {
 
             <ParcelMachines />
 
-            <button onClick={pay}>Maksa</button>
+            <Payment sum={calculateCartSum()} />
           </div>
           }
     </div>
