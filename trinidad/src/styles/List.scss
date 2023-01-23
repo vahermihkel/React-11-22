@@ -1,0 +1,75 @@
+.inline-table {
+
+    .table-wrapper,
+    .button-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .list-title {
+        margin: 0px 0px 30.15px;
+        font-size: 2.8125rem;
+        font-family: var(--twn-font);
+        text-transform: uppercase;
+
+    }
+
+    table {
+        border-collapse: collapse;
+        min-width: 100%;
+        font-size: 1rem;
+        table-layout: fixed;
+        text-align: left;
+    }
+
+    thead {
+        background: #333;
+        color: #fff;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    th.table-name-col {
+        width: 20%;
+    }
+
+    th,
+    tr,
+    td {
+        padding: 0.625rem 1rem;
+        border-bottom: #fff 0.0625rem solid;
+    }
+
+    .button-sort {
+        appearance: none;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        padding: 0;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .button-transparent {
+        font-size: 1rem;
+        background: none;
+        border: none;
+        color: #fff;
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 2.5em;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        transition: none;
+        margin-top: 20px;
+    }
+
+    .active {
+        color: green;
+    }
+}
+

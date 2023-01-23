@@ -1,0 +1,73 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@font-face {
+    font-family: BoosterNextFY;
+    src: url('../src/assets/fonts/BoosterNextFY-Bold.woff2');
+}
+
+:root {
+    --twn-font: BoosterNextFY;
+    --twn-textFont: "Open Sans";
+    --twn-rootFontSize: 16px;
+    --twn-highlightColor: #14cc76;
+    --twn-textColor: #3a3d57;
+    --twn-alternateTextColor: #fff;
+    --twn-secondaryColor: #ff57a2;
+    --twn-backgroundColor: #3a3d57;
+    --twn-linkHoverColor: #03875c;
+    --twn-blockColor: #efefef;
+    --twn-menuWidth: 220px;
+    --twnMaxWidth: 1000px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--twn-backgroundColor);
+    padding: 0;
+    color: var(--twn-alternateTextColor);
+    font-family: var(--twn-textFont);
+}
+
+.mainContent {
+    background-image: url("./assets/imgs/bg-deco-left.svg"), url("./assets/imgs/bg-deco-right.svg");
+    background-repeat: no-repeat;
+    background-position: var(--twn-menuWidth) bottom, 100% 0;
+    background-size: 150px, 250px;
+    background-attachment: fixed;
+    display: block;
+    margin-left: var(--twn-menuWidth);
+    height: 100vh;
+    overflow: auto;
+    padding: 5rem 2.5rem;
+}
+@media screen and (max-width: 960px){
+.mainContent {
+    margin-left: 0;
+    background-position: 0 bottom,100% 0;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 7.5rem;
+}}
+
+
+p {
+    margin: 2.5rem 0;
+}
+ul li a {
+    text-decoration: none;
+    text-decoration-line: none;
+    list-style: none;
+    color: var(--twn-textColor);
+    font-size: 1.1875rem;
+    padding: 0.7rem 1rem;
+    margin: 0 -1.25rem;
+
+}
+.inline{
+    max-width: var(--twnMaxWidth);
+    min-height: 100%;
+    margin: 0 auto;
+}

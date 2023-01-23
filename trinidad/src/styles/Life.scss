@@ -1,0 +1,88 @@
+.game-of-life {
+  $color: white;
+  $background-color-body: rgb(33, 47, 60);
+  $background-color-board: #adf0d028;
+  $alive-color: white;
+  $alive-hover-color: red;
+  $cell-size: 12px;
+
+
+  body {
+    color: $color;
+    background-color: $background-color-body;
+    text-align: center;
+    font-family: 'Open Sans',  sans-serif;
+  }
+
+  .form-item, select{
+    width: 100%;
+    height: 2.375rem;
+    appearance: none;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+  }
+  
+  table {
+    margin: 0 auto 20px auto;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border: none;
+  }
+  
+  td {
+    width: $cell-size;
+    height: $cell-size;
+    border: none;
+    padding: 0;
+
+  }
+  
+  .alive {
+    background-color: $alive-color;
+  
+    &:hover {
+      background-color: $alive-hover-color;
+    }
+  }
+  
+  .dead {
+    background-color: #adf0d028;
+  
+    &:hover {
+      background-color: none;
+    }
+  }
+  
+  button {
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    margin: 20px 10px;
+    padding: 10px 15px;
+    font-size: 18px;  
+    color: $color;
+    background-color: #14cc76;
+    cursor: pointer;
+  
+    &:hover {
+      color: $alive-hover-color;
+    }
+  }
+  
+  .flexRow {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  
+  .upperControls,
+  .lowerControls {
+    margin: auto;
+  }
+  
+}

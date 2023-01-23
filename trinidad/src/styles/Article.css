@@ -1,0 +1,38 @@
+.twn-image{
+    display: block;
+    position: relative;
+}
+.image-title{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.625rem 1.5rem;
+    font-size: 1rem;
+    z-index: 6;
+    background: rgba(0,0,0,.5);
+}
+.image-top {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: center center no-repeat;
+}
+.image-bottom{
+    position:absolute;
+    filter: blur(0.625rem);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: -0.625rem;
+    z-index: 1;
+    background: center center no-repeat;
+    background-size: cover;
+
+}
