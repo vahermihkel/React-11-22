@@ -51,7 +51,7 @@ function HomePage() {
 
       <div>{products.length} tk</div>
       {categories.map(element => 
-        <button key={element} onClick={() => filterByCategory(element)}>
+        <button className="active" key={element} onClick={() => filterByCategory(element)}>
           {element}
         </button> )}
       {/* <button onClick={() => filterByCategory("memory bank")}>memory bank</button>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import config from "../../data/config.json";
 import { ToastContainer, toast } from 'react-toastify';
 import { Spinner } from "react-bootstrap";
-import "../../css/MaintainProducts.css";
+import styles from "../../css/MaintainProducts.module.css";
 
 function MaintainProducts() {
   const [products, setProducts] = useState([]);
@@ -68,7 +68,7 @@ function MaintainProducts() {
       <input ref={searchedRef} onChange={searchProducts} type="text" />
       <div>{products.length} tk</div>
       {products.map((element, index) => 
-        <div key={element.id} className={element.active === true ? "active" : "inactive"}>
+        <div key={element.id} className={element.active === true ? styles.active : styles.inactive}>
           <div onClick={() => changeProductActive(element)}>
             <img src={element.image} alt="" />
             <div>{element.id}</div>

@@ -108,6 +108,9 @@ export default App;
 
 // 23.jaanuar - 17    9.00-12.45
 // lahendan TWN proovitöö ära
-// võime teha e-maili saatmise maksmise asemel radio-button
+// võime teha e-maili saatmise, maksmise asemel radio-button
+// Failide üleslaadimine (piltide üleslaadimine) - uue toote lisamine
+// Firebase
+// Avalehele karusell-galerii
 
 // 30.jaanuar - 18 ---> poolik päev, projekti kirjutamine

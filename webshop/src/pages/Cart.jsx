@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import ParcelMachines from "../components/cart/ParcelMachines";
 import Payment from "../components/cart/Payment";
-import "../css/Cart.css";
+import styles from "../css/Cart.module.css";
 import { useContext, useState } from "react"
 import CartSumContext from "../store/CartSumContext";
 
@@ -63,27 +63,27 @@ function Cart() {
 
   return (
     <div>
-      <div className="cart-top">
+      <div className={styles["cart-top"]}>
         {cart.length > 0 && <button onClick={empty}>Tühjenda</button>}
         {cart.length === 0 && <div>Ostukorv on tühi. <Link to="/">Lisa tooteid</Link></div> }
         {cart.length === 1 && <div>Ostukorvi on 1 ese</div> }
         {cart.length > 1 && <div>Ostukorvi on {cart.length} erinevat eset, kokku {calculateCartItems()}</div> }
       </div>
       {cart.map( (element, index) => 
-        <div key={index} className="product">
-          <img className="image" src={element.product.image} alt="" />
-          <div className="name">{element.product.name}</div>
-          <div className="price">{element.product.price.toFixed(2)} €</div>
-          <div className="quantity">
-            <img className="button" onClick={() => decreaseQuantity(index)} src={require("../images/minus.png")} alt="" />
+        <div key={index} className={styles.product}>
+          <img className={styles.image} src={element.product.image} alt="" />
+          <div className={styles.name}>{element.product.name}</div>
+          <div className={styles.price}>{element.product.price.toFixed(2)} €</div>
+          <div className={styles.quantity}>
+            <img className={styles.button} onClick={() => decreaseQuantity(index)} src={require("../images/minus.png")} alt="" />
             <div>{element.quantity} tk</div>
-            <img className="button" onClick={() => increaseQuantity(index)} src={require("../images/add.png")} alt="" />
+            <img className={styles.button} onClick={() => increaseQuantity(index)} src={require("../images/add.png")} alt="" />
           </div>
-          <div className="total">{(element.product.price * element.quantity).toFixed(2)} €</div>
-          <img className="button" onClick={() => removeFromCart(index)} src={require("../images/remove.png")} alt="" />
+          <div className={styles.total}>{(element.product.price * element.quantity).toFixed(2)} €</div>
+          <img className={styles.button} onClick={() => removeFromCart(index)} src={require("../images/remove.png")} alt="" />
         </div>)}
         {cart.length > 0 && 
-          <div className="cart-bottom">
+          <div className={styles.cart__bottom}>
             <div>{calculateCartSum()} €</div>
 
             <ParcelMachines />
